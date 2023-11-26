@@ -8,8 +8,8 @@ public class TicTacToeGame {
     private static final char DOS_PIECE = 'O';
     private char[][] board;
     private boolean B = true;
-    private List<String> uno; // Renamed to uno
-    private List<String> dos; // Renamed to dos
+    private List<String> uno; 
+    private List<String> dos; 
 
     public TicTacToeGame() {
         board = new char[3][3];
