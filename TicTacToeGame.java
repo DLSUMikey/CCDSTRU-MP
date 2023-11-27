@@ -23,44 +23,44 @@ public class TicTacToeGame {
     }
 
     public void playGame() {
-        Scanner scanner = new Scanner(System.in);
-        while (!isGameOver()) {
-            printBoard();
-            int row = -1, col = -1;
-            while (row < 0 || row >= 3 || col < 0 || col >= 3 || board[row][col] != '-') {
-                try {
-                    System.out.println("Player " + (B ? "Uno" : "Dos") + ", enter row and column (1-3, separated by a space): ");
-                    row = scanner.nextInt() - 1;
-                    col = scanner.nextInt() - 1;
-                } catch (InputMismatchException ex) {
-                    System.out.println("Invalid input. Please enter numbers only.");
-                    scanner.next();
-                    row = -1;
-                    col = -1;
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (!isGameOver()) {
+                printBoard();
+                int row = -1, col = -1;
+                while (row < 0 || row >= 3 || col < 0 || col >= 3 || board[row][col] != '-') {
+                    try {
+                        System.out.println("Player " + (B ? "Uno" : "Dos") + ", enter row and column (1-3, separated by a space): ");
+                        row = scanner.nextInt() - 1;
+                        col = scanner.nextInt() - 1;
+                    } catch (InputMismatchException ex) {
+                        System.out.println("Invalid input. Please enter numbers only.");
+                        scanner.next();
+                        row = -1;
+                        col = -1;
+                    }
                 }
+
+                board[row][col] = B ? UNO_PIECE : DOS_PIECE;
+                updatePlayerPositions(B, row, col, true);
+
+                if (isGameOver()) {
+                    break;
+                }
+
+                if (playerHasThreePieces(B)) {
+                    do {
+                        System.out.println("Player " + (B ? "Uno" : "Dos") + ", remove a piece. Enter row and column (1-3, separated by a space): ");
+                        row = scanner.nextInt() - 1;
+                        col = scanner.nextInt() - 1;
+                    } while (row < 0 || row >= 3 || col < 0 || col >= 3 || board[row][col] != (B ? UNO_PIECE : DOS_PIECE));
+
+                    board[row][col] = '-';
+                    updatePlayerPositions(B, row, col, false);
+                }
+
+                B = !B;
             }
-
-            board[row][col] = B ? UNO_PIECE : DOS_PIECE;
-            updatePlayerPositions(B, row, col, true);
-
-            if (isGameOver()) {
-                break;
-            }
-
-            if (playerHasThreePieces(B)) {
-                do {
-                    System.out.println("Player " + (B ? "Uno" : "Dos") + ", remove a piece. Enter row and column (1-3, separated by a space): ");
-                    row = scanner.nextInt() - 1;
-                    col = scanner.nextInt() - 1;
-                } while (row < 0 || row >= 3 || col < 0 || col >= 3 || board[row][col] != (B ? UNO_PIECE : DOS_PIECE));
-
-                board[row][col] = '-';
-                updatePlayerPositions(B, row, col, false);
-            }
-
-            B = !B;
         }
-
         printBoard();
         System.out.println("Game Over! Player " + (B ? "Dos" : "Uno") + " wins!");
     }
