@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.InputMismatchException;
 
 
-public class TicTacToeGame {
+public class MP {
     private static final char UNO_PIECE = 'X';
     private static final char DOS_PIECE = 'O';
     private char[][] P;
@@ -19,7 +19,7 @@ public class TicTacToeGame {
     private Set<Set<String>> L;
     
 
-    public TicTacToeGame() {
+    public MP() {
         Set<Integer> A = new HashSet<>(Arrays.asList(1, 2, 3));
         int size = A.size(); 
 
@@ -148,7 +148,7 @@ public class TicTacToeGame {
     }
 
     public static void main(String[] args) {
-        TicTacToeGame game = new TicTacToeGame();
+        MP game = new MP();
         game.playGame();
     }
 }
